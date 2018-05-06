@@ -39,16 +39,6 @@ public class Main extends Application {
                 root.getChildren().add(tile);
             }
         }
-//        pieces[0] = new Piece("file:\\gameStratego\\resource\\B02Scout.png",arrayTile[0][2]);
-//        board[0][2]=2;
-//        root.getChildren().add(pieces[0]);
-//        pieces[1]= new Piece("file:\\gameStratego\\resource\\B03Miner.png",arrayTile[0][0]);
-//        board[0][0]=3;
-//        root.getChildren().add(pieces[1]);
-////        pieces[1] = new Piece("file:\\gameStratego\\resource\\R1Spy.PNG",arrayTile[0][1]);
-//        board[2][2]=21;
-////        root.getChildren().add(pieces[1]);
-//        arrayTile[2][2].setFill(Color.BLACK);
         return root;
     }
 
@@ -182,6 +172,7 @@ public class Main extends Application {
                 board[i][j]=10;
                 root.getChildren().add(pieces[k]);
                 setUPPiece= false;
+                root.getChildren().remove(iboard);
                 Opponent.OpponentSetUp();
             }
         }
@@ -293,30 +284,12 @@ public class Main extends Application {
             }
             readyToAttack= true;
         }
-//        else if(turn==1&& url.substring(28,29).equals("R")) {
-//            System.out.print(turn);
-//            root.getChildren().remove(pieces[1]);
-//            turn*=-1;
-//            Attack(i,j);
-//        }
         return root;
     }
-//    public Pane Attack(int i,int j){
-//        int h,k,AttackedX=0,AttackedY=0,indexAttacked;
-//        for (indexAttacked=0;indexAttacked<2;indexAttacked++){
-//            if(pieces[indexAttacked].currentPos.row==i&&pieces[indexAttacked].currentPos.column==j){
-//                break;
-//            }
-//        }
-////        System.out.print("pieces");
-//        root.getChildren().remove(pieces[1]);
-//        System.out.print("pieces");
-//        turn=turn*-1;
-//        return root;
-//    }
     public static Pane Move(int i, int j){
+        root.getChildren().remove(Opponent.line);
         if(turn==1&&arrayTile[i][j].getFill().equals(Color.YELLOW)||arrayTile[i][j].getFill().equals(Color.ORANGE)) {
-            int k, h, x = 0, y = 0,indexMover=0,predictIMover;
+            int k, h, x = 0, y = 0,indexMover=0,predictIMover=0;
             for (k = 0; k < 10; k++) {
                 for (h = 0; h < 10; h++) {
                     if (arrayTile[k][h].getFill().equals(Color.RED)) {
@@ -327,8 +300,9 @@ public class Main extends Application {
                     }
                 }
             }
-            for (predictIMover=0;predictIMover<Opponent.predict.size();predictIMover++){
-                if(Opponent.predict.get(predictIMover).p.row==x&&Opponent.predict.get(predictIMover).p.column==y){
+            for (k=0;k<Opponent.predict.size();k++){
+                if(Opponent.predict.get(k).p.row==x&&Opponent.predict.get(k).p.column==y){
+                    predictIMover=k;
                     break;
                 }
             }
@@ -339,8 +313,8 @@ public class Main extends Application {
                     break;
                 }
             }
-            Opponent.changePosition(new Position(x,y), new Position(i,j),Opponent.predict.get(predictIMover),predictIMover);
             String ah = pieces[indexMover].URL;
+            Opponent.changePosition(new Position(x,y), new Position(i,j),Opponent.predict.get(predictIMover),predictIMover);
             root.getChildren().remove(pieces[indexMover]);
             if (arrayTile[i][j].getFill().equals(Color.YELLOW)) {
                 pieces[indexMover] = new Piece(ah, arrayTile[i][j]);
@@ -356,25 +330,12 @@ public class Main extends Application {
                         root.getChildren().add(pieces[indexMover]);
                     }
                 }
-                else if(board[i][j]==31){
+                else if(board[i][j]==31||board[i][j]-20==board[x][y]){
                     board[i][j]=0;
                     Piece[] b= pieces;
                     int len= pieces.length;
                     pieces= new Piece[len-1];
                     h=0;
-                    for(k =0;k<b.length;k++){
-                        if(k!=indexMover){
-                            pieces[h]=b[k];
-                            h+=1;
-                        }
-                    }
-                }
-                else if ((board[i][j]-20)==board[x][y]){
-                    board[i][j]=0;
-                    Piece[] b= pieces;
-                    int len= pieces.length;
-                    h=0;
-                    pieces= new Piece[len-1];
                     for(k =0;k<b.length;k++){
                         if(k!=indexMover){
                             pieces[h]=b[k];
@@ -413,12 +374,6 @@ public class Main extends Application {
             }
             board[x][y]=0;
 
-//            for(h=0;h<10;h++){
-//                System.out.println();
-//                for (k=0;k<10;k++){
-//                    System.out.print(board[h][k]+" ");
-//                }
-//            }
             for (h = 0; h < 10; h++) {
                 for (k = 0; k < 10; k++) {
                     if (board[h][k] == -1) {

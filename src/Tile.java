@@ -42,4 +42,8 @@ public class Tile extends Rectangle{
         });
     }
 
+    @Override
+    public String toString() {
+        return row+" "+column;
+    }
 }
