@@ -14,8 +14,8 @@ public class Tile extends Rectangle{
         setHeight(100);
         this.row=row;
         this.column=column;
-        if(row==5||row==4){
-            if(column==2||column==3||column==6||column==7){
+        if(row==3||row==4){
+            if(column==2||column==1||column==6||column==5){
                 setFill(Color.BLUE);
             }
             else {

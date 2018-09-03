@@ -9,21 +9,21 @@ import javafx.scene.text.TextAlignment;
 import java.util.Set;
 
 public class InstructorBoard extends Canvas{
-    public InstructorBoard(String ins){
-        setHeight(100);
-        setWidth(500);
+    public InstructorBoard(String ins,int height,int width,int size,int x,int y){
+        setHeight(height);
+        setWidth(width);
         GraphicsContext gc = getGraphicsContext2D();
         gc.setFill( Color.RED );
         gc.setStroke( Color.BLACK );
         gc.setLineWidth(2);
-        Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, 48 );
+        Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, size);
         gc.setFont( theFont );
         gc.fillText( ins, 60, 50 );
         gc.strokeText( ins, 60, 50 );
-        gc.setTextAlign(TextAlignment.CENTER);
-        gc.setTextBaseline(VPos.CENTER);
-        setTranslateX(1000);
-        setTranslateY(0);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setTextBaseline(VPos.BOTTOM);
+        setTranslateX(x);
+        setTranslateY(y);
     }
 
 }
